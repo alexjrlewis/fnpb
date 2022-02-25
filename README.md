@@ -3,28 +3,29 @@
 
 This software provides a Python wrapper/bridge to your full node.
 
-  | Variable    | Value      | Description                                 |  
-  | ----------- | ---------- | ------------------------------------------- |  
-  | FN_HOSTNAME | umbrel.lan | The hostname of the full node.              |  
-  | FN_USERNAME | umbrel     | The username running bitcoin-cli and lncli. |  
-  | FN_PASSWORD | ********   | The password of the username.               |  
+## fnpb.node
 
-## node.py
+Contains the *Node* class that provides an SSH client, which connects to the full node using **paramiko**. This class expects the following variables:
 
-Contains the Node class that provides an SSH client, which connects to the full node using **paramiko**.
+  | Variable | Example Value      | Description                                 |  
+  | -------- | ------------------ | ------------------------------------------- |  
+  | hostname | umbrel.lan         | The hostname of the full node.              |  
+  | username | umbrel             | The username running bitcoin-cli and lncli. |  
+  | password | moneyprintergobrrr | The password of the username.               |  
 
-## ln/info.py
 
-Contains the Info class that provides a summary of the LN daemon that the connected node is running.
+## fnpb.ln.info
 
-## ln/invoice.py
+Contains the *Info* class that provides a summary of the LN daemon that the connected node is running.
 
-Contains the Invoice class that connects to your full node and executes Bitcoin or Lightning Network commands. The lightning invoices are fetched from the full node and converted to a **pandas** data frame. 
+## fnpb.ln.invoice
 
-## utils/type_aliases.py
+Contains the *Invoice* class that connects to your full node and executes Bitcoin or Lightning Network commands. The lightning invoices are fetched from the full node and converted to a pandas data frame. 
+
+## fnpb.utils.type_aliases
 
 Contains useful type aliases, e.g. Bitcoin and Satoshi as aliases for decimal.Decimal objects suitable for currency computations.
 
-## utils/currency_converter.py
+## fnpb.utils.currency_converter
 
 Contains methods to convert between BTC/Sats and USD/GBP/EUR using the <https://api.coindesk.com/v1/bpi/currentprice.json> API.
