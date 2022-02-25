@@ -2,3 +2,5 @@
 *.DS_Store
 venv/
 .env
+*.egg-info
+dist/

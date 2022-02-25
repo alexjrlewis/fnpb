@@ -3,10 +3,8 @@
 import json
 import os
 from typing import Dict, Optional
-
 import pandas as pd
-
-from node import Node
+from fnpb.node import Node
 
 COLUMN_TO_DTYPE = {
     "version": str,
@@ -30,7 +28,7 @@ COLUMN_TO_DTYPE = {
 }
 
 
-class LNInfo(Node):
+class Info(Node):
     """A Lightning Network information class."""
 
     def __init__(self, **kwargs):
@@ -48,10 +46,9 @@ class LNInfo(Node):
         return data
 
     def get_df(self) -> pd.DataFrame:
-        """Fetches 
+        """
 
         Returns:
-            A pandas data frame
         """
         data = self._get_data()
         for column, dtype in COLUMN_TO_DTYPE.items():
@@ -75,11 +72,11 @@ class LNInfo(Node):
         return self._df["best_header_timestamp"][0]
 
     def get_alias(self) -> str:
-        """Returns """
+        """Returns"""
         return self._df["alias"][0]
 
     def get_version(self) -> str:
-        """Returns """
+        """Returns"""
         return self._df["version"][0]
 
     def get_lightning_address(self) -> str:

@@ -2,9 +2,8 @@
 
 from typing import Any, Dict, List, Optional
 import pandas as pd
-
-from node import Node
-from type_aliases import Satoshi, MilliSatoshi, Second
+from fnpb.node import Node
+from fnpb.util.type_aliases import Satoshi, MilliSatoshi, Second
 
 MEMO_MAX_BYTES = 639  # https://bitcoin.stackexchange.com/questions/85951/whats-the-maximum-size-of-the-memo-in-a-ln-payment-request
 STATES = ["OPEN", "SETTLED", "CANCELED", "ACCEPTED", "UNKNOWN"]
@@ -56,7 +55,7 @@ def clip_memo(memo: str) -> str:
     return memo
 
 
-class LNInvoice(Node):
+class Invoice(Node):
     """A Lightning Network invoice class."""
 
     def __init__(self, **kwargs):
@@ -184,7 +183,7 @@ class LNInvoice(Node):
             All invoices with a given state.
         """
         if state in STATES:
-            return self.get_query(f"state == \"{state.upper()}\"").copy()
+            return self.get_query(f'state == "{state.upper()}"').copy()
         return self._df.copy()
 
     def get_created_after(self, creation_date: str) -> pd.DataFrame:
@@ -282,7 +281,9 @@ class LNInvoice(Node):
         else:
             return index
 
-    def add(self, amount_sats: Satoshi, memo: str = "", expiry_time: Second = 86400) -> pd.DataFrame:
+    def add(
+        self, amount_sats: Satoshi, memo: str = "", expiry_time: Second = 86400
+    ) -> pd.DataFrame:
         """Adds and returns a lightning invoice. The input parameters are filtered.
 
         Args:
@@ -290,7 +291,9 @@ class LNInvoice(Node):
             memo: The memo, i.e. description, of the invoice.
             expiry_time: How long the invoice lasts, in seconds (default is a day).
         """
-        amount_msat = round(amount_sats * Satoshi(1e3))  # convert satoshi amount to milli satoshis.
+        amount_msat = round(
+            amount_sats * Satoshi(1e3)
+        )  # convert satoshi amount to milli satoshis.
         command = f'addinvoice --amt_msat {amount_msat} --memo "{clip_memo(memo)}" --expiry {expiry_time}'
         data = self.exec_ln_command(command)
         df = pd.DataFrame(data, index=[0])
@@ -318,8 +321,10 @@ class LNInvoice(Node):
         # self.exec_ln_command(command)
         pass
 
-    def to_csv(self, filename="data/ln_invoice.csv"):
-        """
-        """
-        self._df.to_csv(filename, index=False)
+    def to_csv(self) -> str:
+        """Converts and returns the invoice data frame to a CSV formatted string.
 
+        Returns:
+            The invoice data frame as CSV formatted string.
+        """
+        return self._df.to_csv(index=False)

@@ -1,26 +1,30 @@
 
 # Full Node Python Bridge (fnpb)
 
-> | Variable    | Value      | Description                                 |
-> | ----------- | ---------- | ------------------------------------------- |
-> | FN_HOSTNAME | umbrel.lan | The hostname of the full node.              |
-> | FN_USERNAME | umbrel     | The username running bitcoin-cli and lncli. |
-> | FN_PASSWORD | ********   | The password of the username.               |
+This software provides a Python wrapper/bridge to your full node.
 
-## node
+  | Variable    | Value      | Description                                 |  
+  | ----------- | ---------- | ------------------------------------------- |  
+  | FN_HOSTNAME | umbrel.lan | The hostname of the full node.              |  
+  | FN_USERNAME | umbrel     | The username running bitcoin-cli and lncli. |  
+  | FN_PASSWORD | ********   | The password of the username.               |  
 
-The full node SSH client using **paramiko**.
+## node.py
 
-## ln_info
+Contains the Node class that provides an SSH client, which connects to the full node using **paramiko**.
 
-## ln_invoice
+## ln/info.py
 
-Contains the LNInvoice class that connects to your full node and executes Bitcoin or Lightning Network commands. 
+Contains the Info class that provides a summary of the LN daemon that the connected node is running.
 
-The lightning invoices are fetched from the full node and converted to a **pandas** data frame. 
+## ln/invoice.py
 
-## type_aliases
+Contains the Invoice class that connects to your full node and executes Bitcoin or Lightning Network commands. The lightning invoices are fetched from the full node and converted to a **pandas** data frame. 
 
-## currency_converter
+## utils/type_aliases.py
+
+Contains useful type aliases, e.g. Bitcoin and Satoshi as aliases for decimal.Decimal objects suitable for currency computations.
+
+## utils/currency_converter.py
 
 Contains methods to convert between BTC/Sats and USD/GBP/EUR using the <https://api.coindesk.com/v1/bpi/currentprice.json> API.

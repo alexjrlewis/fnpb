@@ -3,10 +3,8 @@
 import json
 import os
 from typing import Dict, Optional
-
 import pandas as pd
-
-from node import Node
+from fnpb.node import Node
 
 COLUMN_TO_DTYPE = {
     "version": str,
@@ -30,7 +28,7 @@ COLUMN_TO_DTYPE = {
 }
 
 
-class LNChannel(Node):
+class Channel(Node):
     """A Lightning Network channel class."""
 
     def __init__(self, **kwargs):
@@ -48,7 +46,7 @@ class LNChannel(Node):
         return data
 
     def get_df(self) -> pd.DataFrame:
-        """Fetches 
+        """Fetches
 
         Returns:
             A pandas data frame
