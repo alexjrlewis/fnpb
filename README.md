@@ -1,7 +1,11 @@
 
 # Full Node Python Bridge (fnpb)
 
-This software provides a Python wrapper/bridge to your full node.
+This software provides a Python wrapper/bridge by executing RPCs to your full node.
+
+## Installation
+
+..
 
 ## fnpb.node
 
@@ -14,13 +18,48 @@ Contains the *Node* class that provides an SSH client, which connects to the ful
   | password | moneyprintergobrrr | The password of the username.               |  
 
 
-## fnpb.ln.info
+### exec_btc_command
+
+Executes a bitcoin-cli command and returns the result as a Python dictionary.
+
+### exec_ln_command
+
+Executes a lncli command and returns the result as a Python dictionary.
+
+## fnpb.ln
+
+### .info
 
 Contains the *Info* class that provides a summary of the LN daemon that the connected node is running.
 
-## fnpb.ln.invoice
+### invoice
 
-Contains the *Invoice* class that connects to your full node and executes Bitcoin or Lightning Network commands. The lightning invoices are fetched from the full node and converted to a pandas data frame. 
+Contains the *Invoice* class that handles your Lightning invoices. This class connects to your full node and fetches all of your full node's lightning invoices as represents them as a pandas data frame. This data frame is then used to query and perform statistics on the invoices.
+
+### get
+
+Executes the **listinvoices** command on the node and casts/returns the **invoices** value as a pandas data frame.
+
+### get_with_state
+  foo bar
+
+### get_created_after
+  foo bar
+
+### get_created_before
+  foo bar
+
+### get_created_on
+  foo bar
+
+### get_first
+  foo bar
+
+### get_last
+  foo bar
+
+### get_query
+  foo bar
 
 ## fnpb.utils.type_aliases
 
